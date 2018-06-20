@@ -1,6 +1,5 @@
 package com.amila.phonebook.util;
 
-import com.gebsmed.services.JSONService;
 import com.google.inject.Singleton;
 import play.http.HttpErrorHandler;
 import play.mvc.Http;
