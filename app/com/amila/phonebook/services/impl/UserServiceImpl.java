@@ -46,4 +46,25 @@ public class UserServiceImpl implements UserService {
         //update and return updated user
         return userDao.updateUser(userInDb);
     }
+
+
+    /**
+     * Delete user from database
+     * @param idToDelete user's id to delete
+     * @return deleted User
+     */
+    @Override
+    public User deleteUser(long idToDelete) {
+
+        //Get user from the database
+        User userInDb = userDao.searchUser(idToDelete);
+
+        //Check user is null
+        if (userInDb == null){
+            return null;
+        }
+
+        //Delete user and return user
+        return userDao.deleteUser(userInDb);
+    }
 }

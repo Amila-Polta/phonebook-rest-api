@@ -5,6 +5,8 @@ import com.amila.phonebook.dao.impl.UserDaoImpl;
 import com.amila.phonebook.models.User;
 import com.amila.phonebook.services.UserService;
 import com.amila.phonebook.services.impl.UserServiceImpl;
+import com.amila.phonebook.util.JsonServiceUtil;
+import com.amila.phonebook.util.ResponseWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,9 @@ public class UserController extends Controller {
 
     @Inject
     private ObjectMapper objectMapper;
+
+    @Inject
+    private UserService userService;
 
     /**
      * Save user to the database from the request (Use hard coded user)
@@ -71,5 +76,21 @@ public class UserController extends Controller {
             Logger.error(e.getMessage());
             return badRequest("Not a json");
         }
+    }
+
+    /**
+     *  This is to delete user from database
+     * @return Deleted user
+     */
+    public Result deleteUser(long idToDelete){
+
+        User deletedUser = userService.deleteUser(idToDelete);
+
+        if (deletedUser == null){
+            return badRequest(JsonServiceUtil.toJsonNode(new ResponseWrapper<>("No user for the id", null)));
+        }
+
+        return ok(JsonServiceUtil.toJsonNode(new ResponseWrapper<>("User deleted", deletedUser)));
+
     }
 }
