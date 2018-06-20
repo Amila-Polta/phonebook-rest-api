@@ -5,10 +5,17 @@ import com.amila.phonebook.dao.impl.UserDaoImpl;
 import com.amila.phonebook.models.User;
 import com.amila.phonebook.services.UserService;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 /**
  * Created by amilanuwan on 6/20/18.
  */
 public class UserServiceImpl implements UserService {
+
+    @Inject
+    @Named("userDao")
+    private UserDao userDao;
 
 
     /**
